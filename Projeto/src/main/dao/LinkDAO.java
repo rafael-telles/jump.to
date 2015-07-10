@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import main.java.org.hashids.Hashids;
 import main.models.Link;
 import main.utils.StringUtils;
 
@@ -42,7 +43,9 @@ public class LinkDAO {
 		PreparedStatement stmt;
 		String sql = "update links set code = ? where id = ?";
 		
-		String code = StringUtils.getCodeFromId(id);
+		
+		Hashids hashids = new Hashids();
+		String code = hashids.encode(id);
 		
 		try {
 			stmt = connection.prepareStatement(sql);
