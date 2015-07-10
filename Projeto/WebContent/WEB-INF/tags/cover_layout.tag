@@ -1,5 +1,4 @@
 <%@tag pageEncoding="UTF-8"%>
-<%@attribute name="title"%>
 <%@attribute name="navbar" fragment="true"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <jsp:useBean id="global" class="main.Global"/>

@@ -8,5 +8,6 @@
 </head>
 <body>
 	ERROR!
+	${exception.toString()}
 </body>
 </html>

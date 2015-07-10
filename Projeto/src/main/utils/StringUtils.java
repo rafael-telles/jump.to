@@ -1,16 +1,11 @@
 package main.utils;
 
+import org.hashids.Hashids;
+
 public class StringUtils {
-	public static final char[] SYMBOLS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_.-~".toCharArray();
+	private static final Hashids HASHIDS = new Hashids();
 	
 	public static String getCodeFromId(long id) {
-		int symbolsLen = SYMBOLS.length;
-		String result = "";
-		while(id > 0) {
-			result = SYMBOLS[(int) (id % symbolsLen)] + result;
-			id /= symbolsLen;
-		}
-		
-		return result;
+		return HASHIDS.encode(id);
 	}
 }
