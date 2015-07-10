@@ -10,12 +10,17 @@
       <div class="header clearfix">
         <h3 class="text-muted pull-left">${global.siteName}</h3>
         <nav>
-          <form class="nav navbar-form pull-right">
+          <form class="nav navbar-form pull-right" action="urlshortener" method="post">
           	<div class="form-group">
-			    <div class="input-group">
-			      <input type="url" class="form-control" placeholder="Uma URL bem grande" required>
-			      <div class="input-group-addon"><span class="glyphicon glyphicon-send" aria-hidden="true"></span></div>
-			    </div>
+	          	    <div class="input-group">
+				      <input type="url" class="form-control" name="urlToShort" placeholder="Uma URL bem grande!">
+				      <span class="input-group-btn">
+				        <button class="btn btn-default" type="submit">
+				        	<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+				        </button>
+				        <input type="hidden" name="action" value="GenerateLink" />
+				      </span>
+				    </div>
 		  	</div>
           </form>
         </nav>

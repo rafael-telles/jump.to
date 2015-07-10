@@ -5,12 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Jumping to...</title>
+<title>Link gerado!</title>
 </head>
 <body>
 	Code: ${link.code} <br>
 	Long url: ${link.longUrl}
-	
-	<c:redirect url="${link.longUrl}" />
 </body>
 </html>
