@@ -21,11 +21,19 @@ public class RedirectServlet extends HttpServlet {
 		LinkDAO linkDAO = new LinkDAO();
 		linkDAO.setConnection(new ConnectionFactory().getConnection());
 
-		String url = req.getRequestURI();		
-		Link link = linkDAO.searchByUrl(url);
-
+		String nextUrl = "/redirect.jsp";
+		String code = req.getRequestURI();
+		
+		Link link = linkDAO.searchByUrl(code);
+		
+		if(code.endsWith("+")) {
+			code = code.substring(0, code.length() - 1);
+			nextUrl = "/statistics.jsp";
+		} else {		
+			linkDAO.addClickToLink(link);
+		}
 		req.setAttribute("link", link);
-
-		req.getRequestDispatcher("/redirect.jsp").forward(req, resp);
+		
+		req.getRequestDispatcher(nextUrl).forward(req, resp);
 	}
 }

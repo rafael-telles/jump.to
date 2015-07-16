@@ -1,13 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="ISO-8859-1" isErrorPage="true" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Error!</title>
-</head>
-<body>
-	ERROR!
-	${exception.toString()}
-</body>
-</html>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<jsp:useBean id="global" class="main.Global" />
+${expection.printStackTrace() }
+<t:narrow_layout title="Ops...">
+	<div class="alert alert-danger" role="alert">
+		<strong>Ops...</strong> Tem alguma coisa errada aqui... <br>
+		A culpa é desse cara: ${exception.toString()}
+	</div>
+</t:narrow_layout>

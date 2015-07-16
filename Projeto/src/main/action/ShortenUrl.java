@@ -1,4 +1,4 @@
-	package main.action;
+package main.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -6,25 +6,29 @@ import javax.servlet.http.HttpServletResponse;
 import main.dao.LinkDAO;
 import main.jdbc.ConnectionFactory;
 import main.models.Link;
+import main.models.User;
 
-
-public class GenerateLink implements Action {
+public class ShortenUrl implements Action {
 
 	@Override
 	public void executa(HttpServletRequest req, HttpServletResponse resp)
 			throws Exception {
 		String longUrl = req.getParameter("longUrl");
-		
+
 		LinkDAO linkDAO = new LinkDAO();
 		linkDAO.setConnection(new ConnectionFactory().getConnection());
-		
+
 		Link link = new Link();
+
+		User user = (User) req.getSession().getAttribute("user");
+		if (user != null) {
+			link.setUserId(user.getId());
+		}
+		
 		link.setLongUrl(longUrl);
 		String shortUrl = linkDAO.insertLink(link);
-		
-		req.setAttribute("link", link);
 
-		req.getRequestDispatcher("/index.jsp").forward(req, resp);
+		resp.sendRedirect(shortUrl + "+");
 	}
 
 }
