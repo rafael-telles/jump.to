@@ -9,6 +9,8 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import to.jump.utils.Security;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -71,5 +73,9 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void encryptPassword() {
+		this.password = Security.encrypt(password);
 	}
 }

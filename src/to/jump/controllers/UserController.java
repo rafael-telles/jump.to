@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import to.jump.dao.UserDAO;
 import to.jump.models.User;
+import to.jump.utils.Security;
 
 @Controller
 public class UserController {
@@ -35,6 +36,8 @@ public class UserController {
 			throws SQLException {
 		ValidationUtils.rejectIfEmpty(errors, "email", "user.email.empty");
 		ValidationUtils.rejectIfEmpty(errors, "password", "user.password.empty");
+		
+		user.encryptPassword();
 		
 		user = userDao.getUser(user.getEmail(), user.getPassword());
 		if (user != null) {
@@ -61,6 +64,7 @@ public class UserController {
 			return "register";
 		}
 		if (!userDao.verifyByEmail(user.getEmail())) {
+			user.encryptPassword();
 			userDao.insertUser(user);
 			session.setAttribute("user", user);
 
