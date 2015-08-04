@@ -1,2 +1,2 @@
-# MC0037
-Repositório para Programação para Web
+# jump.to
+Repositório para o projeto final da disciplina Programação para Web da UFABC.
