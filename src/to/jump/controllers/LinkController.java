@@ -66,10 +66,11 @@ public class LinkController {
 		return "statistics";
 	}
 
-	@RequestMapping(value = "removeLink", method = RequestMethod.POST)
+	@RequestMapping(value = "removeLink", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String removeLink(long id,
 			HttpServletResponse httpServletResponse, Model model,
 			HttpSession session) {
+		
 		User user = (User) session.getAttribute("user");
 		if (user != null) {
 			Link link = linkDao.getLinkById(id);
