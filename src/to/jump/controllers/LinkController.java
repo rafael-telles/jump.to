@@ -35,7 +35,7 @@ public class LinkController {
 		}
 
 		linkDao.insertLink(link);
-		return "redirect:/";
+		return "redirect:/u/" + link.getCode() + "+";
 	}
 
 	@RequestMapping(value = "/u/{code}", method = RequestMethod.GET)
