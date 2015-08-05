@@ -45,7 +45,6 @@
 		<p>Clicks até agora: ${clickDAO.countClicks(link)}</p>
 		
 		<div id="qrcode"></div>
-		
 		<button style="margin-bottom:10px" class="btn btn-danger pull-right" type="button" onclick="removeLink(${link.id})">Remover</button>
 	</div>
 	

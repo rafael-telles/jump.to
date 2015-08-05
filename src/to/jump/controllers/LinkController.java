@@ -41,15 +41,15 @@ public class LinkController {
 	@RequestMapping(value = "/u/{code}", method = RequestMethod.GET)
 	public RedirectView redirect(@PathVariable String code,
 			final HttpServletResponse response,
-			@RequestHeader(value="referer") String referrer,
-			@RequestHeader(value="User-Agent") String userAgent) {
+			@RequestHeader(value = "referer") String referrer,
+			@RequestHeader(value = "User-Agent") String userAgent) {
 		Link link = linkDao.getLinkByCode(code);
-		
+
 		Click click = new Click();
 		click.setLinkId(link.getId());
 		click.setReferrer(referrer);
 		click.setUserAgent(userAgent);
-		
+
 		clickDao.insertClick(click);
 
 		RedirectView redirectView = new RedirectView();
@@ -75,12 +75,10 @@ public class LinkController {
 			Link link = linkDao.getLinkById(id);
 			if (link.getUserId() == user.getId()) {
 				linkDao.remove(link);
-				
+
 				return "{\"error\": false, \"msg\": \"URL removida com sucesso!\"}";
-			} else {
-				return "{\"error\": true, \"msg\": \"Você não é o dono dessa URL!\"}";
 			}
 		}
-		return "{\"error\": true, \"msg\": \"O que está tentando fazer?\"}";
+		return "{\"error\": true, \"msg\": \"Você não é o dono dessa URL!\"}";
 	}
 }
