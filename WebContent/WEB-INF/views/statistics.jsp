@@ -5,11 +5,20 @@
     <link href="assets/css/share-buttons.css" rel="stylesheet">
     <script src="assets/js/qrcode.min.js"></script>
     
-	<c:if test="${empty user && link.userId == user.id}">
-		<c:redirect url="/login" />
-	</c:if>
-
 	<div class="container">
+	    <c:choose>
+			<c:when test="${empty link.userId}">
+				<div class="alert alert-warning" role="alert">
+					<span>Essa URL curtinha não tem dono, suas estatísticas podem ser visualizadas por qualquer um!</span>
+	        	</div>
+			</c:when>
+			<c:otherwise>
+				<c:if test="${empty user || link.userId != user.id}">
+					<c:redirect url="/login" />
+				</c:if>
+			</c:otherwise>
+		</c:choose>
+	
 		<h3><a href="${link.shortUrl}" target="_blank">${link.shortUrl}</a></h3>
 		<small>URL original: <a href="${link.longUrl}" target="_blank">${link.longUrl}</a></small>
 		
