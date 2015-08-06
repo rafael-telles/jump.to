@@ -30,7 +30,7 @@ public class Link {
 	private Long clicks;
 
 	@Type(type = "timestamp")
-	private Date createDate;
+	private Date createTime;
 
 	public Long getClicks() {
 		if (clicks == null)
@@ -108,12 +108,12 @@ public class Link {
 		return getShortUrl() + "+";
 	}
 
-	public Date getCreateDate() {
-		return createDate;
+	public Date getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 }
