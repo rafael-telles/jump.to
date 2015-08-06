@@ -3,7 +3,7 @@
 <jsp:useBean id="global" class="to.jump.Global" />
 
 <t:narrow_layout title="Resultados de busca">
-	<link href="assets/css/cards.css" rel="stylesheet">
+	<link href="assets/css/search-results.css" rel="stylesheet">
 
 	<div class="container">
 		<h2>Resultados da busca:</h2>
@@ -13,27 +13,34 @@
 				<h3>Nada!</h3>
 			</c:when>
 			<c:otherwise>
-				<div class="row">
+				<section class="col-xs-12 col-sm-6 col-md-12">
 					<c:forEach var="link" items="${results}">
-						<div class="col-xs-12">
-							<div class="card">
-								<div class="card-image">
-									<img class="img-responsive"
-										src="http://free.pagepeeker.com/v2/thumbs.php?size=x&url=${link.longUrl}">
-								</div>
-
-								<div class="card-content">
-									<p class="truncate-text">
-										<a href="${link.shortUrl}">${link.title}</a>
-									</p>
-									Clicks: ${link.clicks}
-								</div>
+						<article class="search-result row">
+							<div class="col-xs-12 col-sm-12 col-md-3">
+								<a href="#" title="Lorem ipsum" class="thumbnail"><img
+									src="http://free.pagepeeker.com/v2/thumbs.php?size=x&url=${link.longUrl}" alt="${link.title}" /></a>
 							</div>
-						</div>
+							<div class="col-xs-12 col-sm-12 col-md-2">
+								<ul class="meta-search">
+									<li><i class="glyphicon glyphicon-calendar"></i> <span>02/15/2014</span></li>
+									<li><i class="glyphicon glyphicon-time"></i> <span>4:28
+											pm</span></li>
+									<li><i class="glyphicon glyphicon-tags"></i> <span>${link.tags}</span></li>
+								</ul>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+								<h3>
+									<a href="${link.shortUrl}" title="${link.title}">${link.title}</a>
+								</h3>
+								<p>${link.description}</p>
+							</div>
+							<span class="clearfix borda"></span>
+						</article>
 					</c:forEach>
-				</div>
-			</c:otherwise>
-		</c:choose>
+				</section>
+	</div>
+	</c:otherwise>
+	</c:choose>
 
 	</div>
 </t:narrow_layout>
