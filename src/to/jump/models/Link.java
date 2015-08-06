@@ -21,8 +21,9 @@ public class Link {
 	private String code;
 	private String title;
 	private String description;
+	private String tags;
 	private String longUrl;
-	
+
 	public Long getUserId() {
 		return userId;
 	}
@@ -47,7 +48,6 @@ public class Link {
 		this.code = code;
 	}
 
-
 	public String getTitle() {
 		return title;
 	}
@@ -56,13 +56,20 @@ public class Link {
 		this.title = title;
 	}
 
-
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 	public String getLongUrl() {

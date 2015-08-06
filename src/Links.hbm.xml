@@ -17,6 +17,9 @@
         <property name="description" type="string">
             <column name="description" />
         </property>
+        <property name="tags" type="string">
+            <column name="tags" />
+        </property>
         <property name="longUrl" type="string">
             <column name="longUrl" />
         </property>
