@@ -31,12 +31,14 @@
 
 								<div class="card-content">
 									<p class="truncate-text">
-										<a href="${link.longUrl}">${link.longUrl}</a>
+										<a href="${link.shortUrl}">${link.title}</a>
+										<br><br>
+										Clicks: ${clickDAO.countClicks(link)}
 									</p>
 								</div>
 
 								<div class="card-action">
-									<a href="${link.statisticsUrl}" class="text-default pull-left">
+									<a href="${link.shortUrl}" class="text-default pull-left">
 										<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
 									</a>
 									<a href="${link.statisticsUrl}" class="text-default">

@@ -1,7 +1,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:useBean id="global" class="to.jump.Global" />
-<t:narrow_layout>
+<t:narrow_layout title="${link.title}">
     <link href="assets/css/share-buttons.css" rel="stylesheet">
     <script src="assets/js/qrcode.min.js"></script>
     
@@ -19,7 +19,7 @@
 			</c:otherwise>
 		</c:choose>
 	
-		<h3><a href="${link.shortUrl}" target="_blank">${link.shortUrl}</a></h3>
+		<h3><a href="${link.shortUrl}" target="_blank">${link.title}</a></h3>
 		<small>URL original: <a href="${link.longUrl}" target="_blank">${link.longUrl}</a></small>
 		
 		<img src="http://free.pagepeeker.com/v2/thumbs.php?size=x&url=${link.longUrl}">

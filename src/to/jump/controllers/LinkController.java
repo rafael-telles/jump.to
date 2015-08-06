@@ -18,6 +18,7 @@ import to.jump.dao.LinkDAO;
 import to.jump.models.Click;
 import to.jump.models.Link;
 import to.jump.models.User;
+import to.jump.utils.Utils;
 
 @Controller
 public class LinkController {
@@ -34,6 +35,8 @@ public class LinkController {
 			link.setUserId(user.getId());
 		}
 
+		link.setTitle(Utils.getPageTitle(link.getLongUrl()));
+		
 		linkDao.insertLink(link);
 		return "redirect:/u/" + link.getCode() + "+";
 	}

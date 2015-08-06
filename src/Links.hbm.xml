@@ -11,6 +11,9 @@
         <property name="code" type="string">
             <column name="code" />
         </property>
+        <property name="title" type="string">
+            <column name="title" />
+        </property>
         <property name="longUrl" type="string">
             <column name="longUrl" />
         </property>
