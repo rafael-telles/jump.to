@@ -73,9 +73,13 @@ public class LinkDAO {
 		return link.getShortUrl();
 	}
 
+	public void updateLink(Link link) {
+		sessionFactory.getCurrentSession().update(link);
+	}
+	
 	private String createCodeAndUpdate(Link link) {
 		link.setCode(StringUtils.getCodeFromId(link.getId()));
-		sessionFactory.getCurrentSession().update(link);
+		updateLink(link);
 		return link.getCode();
 	}
 
