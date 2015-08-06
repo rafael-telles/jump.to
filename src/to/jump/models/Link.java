@@ -20,6 +20,7 @@ public class Link {
 
 	private String code;
 	private String title;
+	private String description;
 	private String longUrl;
 	
 	public Long getUserId() {
@@ -53,6 +54,15 @@ public class Link {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getLongUrl() {
