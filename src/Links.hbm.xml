@@ -29,5 +29,8 @@
         <property name="clicks" type="long">
             <column name="clicks" not-null="false" default="0"/>
         </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" not-null="false" default="CURRENT_TIMESTAMP"/>
+        </property>
     </class>
 </hibernate-mapping>

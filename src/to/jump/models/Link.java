@@ -1,11 +1,14 @@
 package to.jump.models;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Type;
 
 import to.jump.Global;
 
@@ -26,13 +29,18 @@ public class Link {
 	private String longUrl;
 	private Long clicks;
 
+	@Type(type = "timestamp")
+	private Date createDate;
+
 	public Long getClicks() {
-		if(clicks == null) return 0L;
+		if (clicks == null)
+			return 0L;
 		return clicks;
 	}
 
 	public void setClicks(Long clicks) {
-		if(clicks == null) clicks = 0L;
+		if (clicks == null)
+			clicks = 0L;
 		this.clicks = clicks;
 	}
 
@@ -99,4 +107,13 @@ public class Link {
 	public String getStatisticsUrl() {
 		return getShortUrl() + "+";
 	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
 }
