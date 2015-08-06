@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.util.HtmlUtils;
 
 import to.jump.dao.LinkDAO;
 
@@ -34,10 +35,12 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String search(String q,
-			HttpServletResponse httpServletResponse, Model model) {
-		model.addAttribute("results", linkDao.searchLinks(q));
-
+	public String search(String q, Model model) {
+		q = HtmlUtils.htmlEscape(q);
+		model.addAttribute("query", q);
+		if(q.length() >= 2) {
+			model.addAttribute("results", linkDao.searchLinks(q));
+		}
 		return "search-results";
 	}
 }
