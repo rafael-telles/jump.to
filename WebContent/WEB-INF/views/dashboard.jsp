@@ -11,6 +11,17 @@
 
 	<div class="container">
 		<h2>Olá, ${user.firstName}!</h2>
+		
+		<form action="shorten" method="post">
+		    <div class="input-group">
+		      <input id="longUrl" name="longUrl" type="url" class="form-control" placeholder="Uma URL bem grande" required>
+		      	<div class="input-group-btn">
+                	<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-send"></i></button>
+            	</div>
+		  	</div>
+        </form>
+          
+        <hr>
 
 		<c:set var="lista" value="${linkDAO.getLinksByUser(user)}" />
 		<c:choose>

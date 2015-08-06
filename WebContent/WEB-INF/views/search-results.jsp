@@ -7,7 +7,7 @@
 	<link href="assets/css/search-results.css" rel="stylesheet">
 
 	<div class="container">
-		<h2>Resultados da busca: <small>${query}</small></h2>
+		<h2>Resultados da busca: "${query}"</h2>
 		<br>
 		<c:choose>
 			<c:when test="${empty results}">
@@ -28,7 +28,9 @@
 												value="${link.createTime}" pattern="dd/MM/yyyy" /></span></li>
 									<li><i class="glyphicon glyphicon-time"></i> <span><fmt:formatDate
 												value="${link.createTime}" pattern="HH:mm" /></span></li>
-									<li><i class="glyphicon glyphicon-tags"></i> <span>${link.tags}</span></li>
+									<c:if test="${not empty link.tags}">
+										<li><i class="glyphicon glyphicon-tags"></i> <span>${link.tags}</span></li>
+									</c:if>
 								</ul>
 							</div>
 							<div class="col-xs-12 col-sm-12 col-md-6 excerpet">
@@ -36,6 +38,8 @@
 									<a href="${link.shortUrl}" title="${link.title}">${link.title}</a>
 								</h3>
 								<p>${link.description}</p>
+								<hr>
+								<p>Clicks: ${link.clicks}</p>
 							</div>
 							<span class="clearfix borda"></span>
 						</article>

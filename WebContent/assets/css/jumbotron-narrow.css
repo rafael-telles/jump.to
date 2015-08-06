@@ -83,3 +83,8 @@ body {
     white-space:nowrap; 
     text-overflow: ellipsis;
 }
+
+.wrapper img {
+	width:80%;
+	height:80%;
+}

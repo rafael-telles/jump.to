@@ -27,6 +27,14 @@
 		</div>
 		<h1>Bem-vindo!</h1>
 		<p class="lead">${global.siteName} é um simples encurtador de URLs.</p>
+		<form action="shorten" method="post">
+		    <div class="input-group">
+		      <input id="longUrl" name="longUrl" type="url" class="form-control" placeholder="Uma URL bem grande" required>
+		      	<div class="input-group-btn">
+                	<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-send"></i></button>
+            	</div>
+		  	</div>
+        </form>
 		<a class="btn btn-success btn-lg" href="/login">Login</a>
 	</div>
 </t:narrow_layout>
