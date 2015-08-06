@@ -60,9 +60,9 @@ public class LinkDAO {
 						"select a from Link a where "
 						+ "title like '%'||:query||'%' "
 						+ "or description like '%'||:query||'%' "
-						+ "or tags like '%'||:query||'%'")
+						+ "or tags like '%'||:query||'%' "
+						+ "group by longUrl")
 				.setParameter("query", query).list();
-
 	}
 
 	public String insertLink(Link link) {
