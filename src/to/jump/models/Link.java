@@ -23,6 +23,15 @@ public class Link {
 	private String description;
 	private String tags;
 	private String longUrl;
+	private long clicks;
+
+	public long getClicks() {
+		return clicks;
+	}
+
+	public void setClicks(long clicks) {
+		this.clicks = clicks;
+	}
 
 	public Long getUserId() {
 		return userId;

@@ -26,5 +26,8 @@
         <property name="userId" type="java.lang.Long">
             <column name="userId" />
         </property>
+        <property name="clicks" type="long">
+            <column name="clicks" />
+        </property>
     </class>
 </hibernate-mapping>

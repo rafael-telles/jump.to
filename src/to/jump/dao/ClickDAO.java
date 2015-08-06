@@ -13,22 +13,29 @@ import to.jump.models.Link;
 public class ClickDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	LinkDAO linkDao;
 
 	public void insertClick(Click click) {
 		sessionFactory.getCurrentSession().persist(click);
+		Link link = linkDao.getLinkById(click.getLinkId());
+		link.setClicks(link.getClicks() + 1);
+		
+		linkDao.updateLink(link);
 	}
-	
+
 	public void removeAllClicks(Link link) {
 		sessionFactory.getCurrentSession()
-			.createQuery("delete from Click c where c.linkId = :linkId")
-			.setParameter("linkId", link.getId())
-			.executeUpdate();
+				.createQuery("delete from Click c where c.linkId = :linkId")
+				.setParameter("linkId", link.getId()).executeUpdate();
 	}
-	
+
 	public long countClicks(Link link) {
-		return (long) sessionFactory.getCurrentSession()
-				.createQuery("select count(*) from Click c where c.linkId = :linkId")
-				.setParameter("linkId", link.getId())
-				.uniqueResult();
+		return (long) sessionFactory
+				.getCurrentSession()
+				.createQuery(
+						"select count(*) from Click c where c.linkId = :linkId")
+				.setParameter("linkId", link.getId()).uniqueResult();
 	}
 }
