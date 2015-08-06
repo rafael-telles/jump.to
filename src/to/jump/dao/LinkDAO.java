@@ -1,6 +1,7 @@
 package to.jump.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -61,11 +62,14 @@ public class LinkDAO {
 						+ "title like '%'||:query||'%' "
 						+ "or description like '%'||:query||'%' "
 						+ "or tags like '%'||:query||'%' "
-						+ "group by longUrl")
+						+ "group by longUrl "
+						+ "order by clicks")
 				.setParameter("query", query).list();
 	}
 
 	public String insertLink(Link link) {
+		link.setCreateTime(new Date());
+		
 		sessionFactory.getCurrentSession().persist(link);
 		sessionFactory.getCurrentSession().flush();
 		createCodeAndUpdate(link);
