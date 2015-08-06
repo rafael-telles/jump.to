@@ -44,6 +44,15 @@ public class LinkDAO {
 		}
 	}
 
+	public List<Link> getLinksByTag(String tag) {
+		return sessionFactory
+				.getCurrentSession()
+				.createQuery(
+						"select a from Link a where tags like '%'||:tag||'%'")
+				.setParameter("tag", tag).list();
+
+	}
+
 	public String insertLink(Link link) {
 		sessionFactory.getCurrentSession().persist(link);
 		sessionFactory.getCurrentSession().flush();
