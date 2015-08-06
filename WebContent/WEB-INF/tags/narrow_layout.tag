@@ -15,23 +15,17 @@
 	<div class="container">
       <div class="header clearfix">
         <h3 class="text-muted pull-left">
-					<a href="/"><img width="24" src="assets/imgs/small_logo.png"> ${global.siteName}</a>
-				</h3>
+			<a href="/"><img width="24" src="assets/imgs/small_logo.png"> ${global.siteName}</a>
+		</h3>
         <nav>
-          <form id="shortenUrlForm" class="nav navbar-form pull-right" action="shorten" method="post">
-          	<div class="form-group">
-			    <div class="input-group">
-			      <input id="longUrl" name="longUrl" type="url" class="form-control" placeholder="Uma URL bem grande" required>
-			      <div class="input-group-addon">
-				      <a onclick="shortenUrl()">
-				      	<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-				      </a>
-				  </div>
-			    </div>
-		  	</div>
-		  	
-          	<input type="hidden" name="action" value="ShortenUrl" />
-            
+          <form class="nav navbar-form pull-right" action="search" method="get">
+          	<div class="input-group">
+	            <input type="text" class="form-control" placeholder="Busca..." name="q">
+	            <div class="input-group-btn">
+	                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+	            </div>
+        	</div>
+    
 			<c:choose>
 				<c:when test="${empty user}">
             		<a class="btn btn-success" href="/login">Login</a>
