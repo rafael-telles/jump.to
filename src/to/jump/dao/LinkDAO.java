@@ -53,6 +53,18 @@ public class LinkDAO {
 
 	}
 
+	public List<Link> searchLinks(String query) {
+		return sessionFactory
+				.getCurrentSession()
+				.createQuery(
+						"select a from Link a where "
+						+ "title like '%'||:query||'%' "
+						+ "or description like '%'||:query||'%' "
+						+ "or tags like '%'||:query||'%'")
+				.setParameter("query", query).list();
+
+	}
+
 	public String insertLink(Link link) {
 		sessionFactory.getCurrentSession().persist(link);
 		sessionFactory.getCurrentSession().flush();
