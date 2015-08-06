@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import to.jump.Global;
 
@@ -23,13 +24,15 @@ public class Link {
 	private String description;
 	private String tags;
 	private String longUrl;
-	private long clicks;
+	private Long clicks;
 
-	public long getClicks() {
+	public Long getClicks() {
+		if(clicks == null) return 0L;
 		return clicks;
 	}
 
-	public void setClicks(long clicks) {
+	public void setClicks(Long clicks) {
+		if(clicks == null) clicks = 0L;
 		this.clicks = clicks;
 	}
 

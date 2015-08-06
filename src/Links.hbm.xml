@@ -27,7 +27,7 @@
             <column name="userId" />
         </property>
         <property name="clicks" type="long">
-            <column name="clicks" />
+            <column name="clicks" not-null="false" default="0"/>
         </property>
     </class>
 </hibernate-mapping>
