@@ -15,7 +15,7 @@
 			<c:otherwise>
 				<div class="row">
 					<c:forEach var="link" items="${results}">
-						<div class="col-lg-4 col-md-6">
+						<div class="col-xs-12">
 							<div class="card">
 								<div class="card-image">
 									<img class="img-responsive"
@@ -26,6 +26,7 @@
 									<p class="truncate-text">
 										<a href="${link.shortUrl}">${link.title}</a>
 									</p>
+									Clicks: ${link.clicks}
 								</div>
 							</div>
 						</div>

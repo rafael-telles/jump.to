@@ -33,7 +33,7 @@
 									<p class="truncate-text">
 										<a href="${link.shortUrl}">${link.title}</a>
 										<br><br>
-										Clicks: ${clickDAO.countClicks(link)}
+										Clicks: ${link.clicks}
 									</p>
 								</div>
 
