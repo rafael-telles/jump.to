@@ -72,7 +72,8 @@ public class UserController {
 
 			return "redirect:/dashboard";
 		}
-		return "redirect:/";
+		result.reject("user.alredy_exists");
+		return "register";
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
