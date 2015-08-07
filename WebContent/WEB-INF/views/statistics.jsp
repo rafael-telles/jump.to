@@ -9,8 +9,7 @@
                 <c:choose>
                         <c:when test="${empty link.userId}">
                                 <div class="alert alert-warning" role="alert">
-                                        <span>Essa URL curtinha não tem dono, suas estatísticas
-                                                podem ser visualizadas por qualquer um!</span>
+                                        <span>Essa URL curtinha não tem dono, suas estatísticaspodem ser visualizadas por qualquer um!</span>
                                 </div>
                         </c:when>
                         <c:otherwise>
@@ -21,45 +20,36 @@
                 </c:choose>
  
                 <div class="jumbotron">
-                        <p>
-                                URL: <a href="${link.shortUrl}" target="_blank">${link.shortUrl}</a>
-                        </p>
-                                
+                        <h3>URL: <a href="${link.shortUrl}" target="_blank">${link.shortUrl}</a></h3>
                         <small>URL original: <a href="${link.longUrl}"
                                 target="_blank">${link.longUrl}</a></small> <br> <br>
                         <div class="wrapper">
-                                <img src="http://free.pagepeeker.com/v2/thumbs.php?size=x&url=${link.longUrl}" style="border: 1px solid gray;">
+                                <img src="http://free.pagepeeker.com/v2/thumbs.php?size=x&url=${link.longUrl}" style="border: 1px solid gray;"><br><br>
                         </div>
-                        <br>
-                        <div class="ssb">
-                                <!-- Twitter -->
-                                <a href="#"
-                                        onclick="window.open('https://twitter.com/intent/tweet?text=${link.shortUrl}&source=webclient', 'Twitter', 'WIDTH=700, HEIGHT=280');"
-                                        title="Compartilhar no Twitter" target="_blank"
-                                        class="btn btn-twitter"> <i class="fa fa-twitter"></i> Twitter
-                                </a>
+                                <div class="well">
+                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                        <p>Clicks até agora: ${link.clicks}</p>
+                                        <div id="qrcode" align="middle"></div>
+                                        <br><p>QR Code do seu link.</p>
+                                        <div class="ssb">
+                                                <!-- Twitter -->
+                                                <a href="#" onclick="window.open('https://twitter.com/intent/tweet?text=${link.shortUrl}&source=webclient', 'Twitter', 'WIDTH=700, HEIGHT=280');"
+                                                        title="Compartilhar no Twitter" target="_blank"
+                                                        class="btn btn-twitter"> <i class="fa fa-twitter"></i>Twitter</a>
  
-                                <!-- Facebook -->
-                                <a href="#"
-                                        onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${link.shortUrl}', 'Facebook', 'WIDTH=700, HEIGHT=341');"
-                                        title="Compartilhar no Facebook" target="_blank"
-                                        class="btn btn-facebook"> <i class="fa fa-facebook"></i>Facebook
-                                </a>
+                                                <!-- Facebook -->
+                                                <a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${link.shortUrl}', 'Facebook', 'WIDTH=700, HEIGHT=341');"
+                                                        title="Compartilhar no Facebook" target="_blank"
+                                                        class="btn btn-facebook"> <i class="fa fa-facebook"></i>Facebook</a>
  
-                                <!-- Google+ -->
-                                <a href="#"
-                                        onclick="window.open('https://plus.google.com/share?url=${link.shortUrl}', 'Google+', 'WIDTH = 500, HEIGHT = 450');"
-                                        title="Compartilhar no Google+" target="_blank"
-                                        class="btn btn-googleplus"> <i class="fa fa-google-plus"></i>Google+
-                                </a>
+                                                <!-- Google+ -->
+                                                <a href="#" onclick="window.open('https://plus.google.com/share?url=${link.shortUrl}', 'Google+', 'WIDTH = 500, HEIGHT = 450');"
+                                                        title="Compartilhar no Google+" target="_blank"
+                                                        class="btn btn-googleplus"> <i class="fa fa-google-plus"></i>Google+</a>
+                                </div>
                         </div>
                 </div>
- 
-                <p align="center"> Clicks até agora: ${link.clicks}</p>
-                <div id="qrcode" align="middle"></div>
- 
-                <button style="margin-bottom: 10px" class="btn btn-danger pull-right"
-                        type="button" onclick="removeLink(${link.id})">Remover</button>
+                <button style="margin-bottom: 10px" class="btn btn-danger pull-right"type="button" onclick="removeLink(${link.id})">Remover Link</button>
         </div>
  
         <script>
@@ -85,7 +75,9 @@
             text: "${link.shortUrl}",
             colorDark : "#000000",
             colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.H
+            height : 180,
+            width : 180,
+            correctLevel : QRCode.CorrectLevel.H,
         });
         </script>
 </t:narrow_layout>

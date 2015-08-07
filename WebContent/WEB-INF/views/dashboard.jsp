@@ -20,13 +20,15 @@
             	</div>
 		  	</div>
         </form>
-          
         <hr>
-
 		<c:set var="lista" value="${linkDAO.getLinksByUser(user)}" />
+		
 		<c:choose>
 			<c:when test="${empty lista}">
-				<h3>Você ainda não encurtou nenhuma URL!</h3>
+				<div class="alert alert-warning" role="alert">
+                	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span> Você ainda não encurtou nenhuma URL!</span>
+               	</div>
 			</c:when>
 			<c:otherwise>
 				<h4>Estes são os seus links:</h4>
