@@ -24,8 +24,14 @@ public class Link {
 
 	private String code;
 	private String title;
+	
+	@Column(name = "description")
 	private String description;
+	
+	@Column(name = "tags")
 	private String tags;
+	
+	
 	private String longUrl;
 	private Long clicks;
 
