@@ -31,16 +31,18 @@ public class LinkController {
 	@RequestMapping(value = "/shorten", method = RequestMethod.POST)
 	public String shorten(Link link, HttpSession session) {
 		User user = (User) session.getAttribute("user");
+		
+		link.setTitle(Utils.getPageTitle(link.getLongUrl()));
 		if (user != null) {
 			link.setUserId(user.getId());
-		}
+			linkDao.insertLink(link);
+			return "redirect:/u/" + link.getCode() + "-edit";
 
-		link.setTitle(Utils.getPageTitle(link.getLongUrl()));
-		
+		}
 		linkDao.insertLink(link);
 		return "redirect:/u/" + link.getCode() + "+";
 	}
-
+	
 	@RequestMapping(value = "/u/{code}", method = RequestMethod.GET)
 	public RedirectView redirect(@PathVariable String code,
 			final HttpServletResponse response,
@@ -58,6 +60,23 @@ public class LinkController {
 		RedirectView redirectView = new RedirectView();
 		redirectView.setUrl(link.getLongUrl());
 		return redirectView;
+	}
+	
+	@RequestMapping(value = "/u/{code}-edit", method = RequestMethod.GET)
+	public String Edit(@PathVariable String code,
+			HttpServletResponse httpServletResponse, Model model){
+		Link link = linkDao.getLinkByCode(code);
+		model.addAttribute("link", link);
+		return "edit";
+	}
+	
+	@RequestMapping(value = "/updatelink", method = RequestMethod.POST)
+	public String UpdateLink(HttpServletResponse httpServletResponse,Link link, Model model){
+		Link linkToUpdate = linkDao.getLinkById(link.getId());
+		linkToUpdate.setTags(link.getTags());
+		linkToUpdate.setDescription(link.getDescription());
+		linkDao.updateLink(linkToUpdate);
+		return "redirect:/u/" + linkToUpdate.getCode() + "+";
 	}
 
 	@RequestMapping(value = "/u/{code}+", method = RequestMethod.GET)
@@ -83,6 +102,6 @@ public class LinkController {
 				return "{\"error\": false, \"msg\": \"URL removida com sucesso!\"}";
 			}
 		}
-		return "{\"error\": true, \"msg\": \"Você não é o dono dessa URL!\"}";
+		return "{\"error\": true, \"msg\": \"VocÃª nÃ£o Ã© o dono dessa URL!\"}";
 	}
 }

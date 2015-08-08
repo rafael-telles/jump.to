@@ -113,6 +113,10 @@ public class Link {
 	public String getStatisticsUrl() {
 		return getShortUrl() + "+";
 	}
+	
+	public String getEditUrl() {
+		return getShortUrl() + "-edit";
+	}
 
 	public Date getCreateTime() {
 		return createTime;
