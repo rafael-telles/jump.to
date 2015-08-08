@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import to.jump.models.Link;
 import to.jump.models.User;
+import to.jump.utils.DateUtils;
 import to.jump.utils.StringUtils;
 
 @Repository
@@ -18,6 +19,9 @@ import to.jump.utils.StringUtils;
 public class LinkDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private ClickDAO clickDao;
 
 	public void remove(Link link) {
 		sessionFactory.getCurrentSession().delete(link);
@@ -101,6 +105,23 @@ public class LinkDAO {
 	public Link getLinkByUrl(String url) {
 		String code = getCodeFromUrl(url);
 		return getLinkByCode(code);
+	}
+	
+	public String getClicksChartData(Link link) {
+		Date day = new Date();
+		String ret = "]";
+		for (int i = 0; i < 7; i++) {
+			ret = clickDao.countClicksOnDay(link, day) + ret;
+			if(i < 6) ret = ", " + ret;
+			
+			day = DateUtils.addDays(day, -1);
+		}
+		ret = "[" + ret;
+		return ret;
+	}
+	
+	public String getBrowsersChartData(Link link) {
+		return "[]";
 	}
 
 	private static String getCodeFromUrl(String url) {

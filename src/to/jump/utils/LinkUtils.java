@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Utils {
+public class LinkUtils {
 	public static String getBrowserFromUserAgent(String userAgent) {
 		if(userAgent.contains("Firefox") && !userAgent.contains("Seamonkey")) {
 			return "Firefox";

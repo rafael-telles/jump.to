@@ -18,7 +18,7 @@ import to.jump.dao.LinkDAO;
 import to.jump.models.Click;
 import to.jump.models.Link;
 import to.jump.models.User;
-import to.jump.utils.Utils;
+import to.jump.utils.LinkUtils;
 
 @Controller
 public class LinkController {
@@ -35,7 +35,7 @@ public class LinkController {
 			link.setUserId(user.getId());
 		}
 
-		link.setTitle(Utils.getPageTitle(link.getLongUrl()));
+		link.setTitle(LinkUtils.getPageTitle(link.getLongUrl()));
 		
 		linkDao.insertLink(link);
 		return "redirect:/u/" + link.getCode() + "+";
@@ -51,7 +51,7 @@ public class LinkController {
 		Click click = new Click();
 		click.setLinkId(link.getId());
 		click.setReferrer(referrer);
-		click.setUserAgent(userAgent);
+		click.setBrowser(LinkUtils.getBrowserFromUserAgent(userAgent));
 
 		clickDao.insertClick(click);
 
@@ -83,6 +83,6 @@ public class LinkController {
 				return "{\"error\": false, \"msg\": \"URL removida com sucesso!\"}";
 			}
 		}
-		return "{\"error\": true, \"msg\": \"Você não é o dono dessa URL!\"}";
+		return "{\"error\": true, \"msg\": \"Vocï¿½ nï¿½o ï¿½ o dono dessa URL!\"}";
 	}
 }
