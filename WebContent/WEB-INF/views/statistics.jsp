@@ -1,3 +1,4 @@
+<%@page import="to.jump.utils.Browser"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:useBean id="global" class="to.jump.Global" />
@@ -6,6 +7,11 @@
 	<link href="assets/css/chartist.min.css" rel="stylesheet">
 	<script src="assets/js/qrcode.min.js"></script>
 	<script src="assets/js/chartist.min.js"></script>
+	<style>
+	.ct-label.ct-horizontal.ct-end {
+		font-size: 80%;
+	}
+	</style>
 
 	<div class="container">
 		<c:choose>
@@ -23,56 +29,66 @@
 		</c:choose>
 
 		<div class="jumbotron">
-			<h3>
+			<h3><a href="${link.shortUrl}" target="_blank">${link.title}</a></h3>
+			<h4>
 				URL: <a href="${link.shortUrl}" target="_blank">${link.shortUrl}</a>
-			</h3>
-			<small>URL original: <a href="${link.longUrl}"
-				target="_blank">${link.longUrl}</a></small> <br> <br>
+			</h4>
+			<small>URL original:
+				<a href="${link.longUrl}" target="_blank">${link.longUrl}</a>
+			</small>
+			<br>
+			<br>
+			<div class="ssb">
+				<!-- Twitter -->
+				<a href="#"
+					onclick="window.open('https://twitter.com/intent/tweet?text=${link.shortUrl}&source=webclient', 'Twitter', 'WIDTH=700, HEIGHT=280');"
+					title="Compartilhar no Twitter" target="_blank"
+					class="btn btn-twitter"> <i class="fa fa-twitter"></i>Twitter
+				</a>
+
+				<!-- Facebook -->
+				<a href="#"
+					onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${link.shortUrl}', 'Facebook', 'WIDTH=700, HEIGHT=341');"
+					title="Compartilhar no Facebook" target="_blank"
+					class="btn btn-facebook"> <i class="fa fa-facebook"></i>Facebook
+				</a>
+
+				<!-- Google+ -->
+				<a href="#"
+					onclick="window.open('https://plus.google.com/share?url=${link.shortUrl}', 'Google+', 'WIDTH = 500, HEIGHT = 450');"
+					title="Compartilhar no Google+" target="_blank"
+					class="btn btn-googleplus"> <i class="fa fa-google-plus"></i>Google+
+				</a>
+			</div>
+			<br>
 			<div class="wrapper">
 				<img
 					src="http://free.pagepeeker.com/v2/thumbs.php?size=x&url=${link.longUrl}"
-					style="border: 1px solid gray;"><br> <br>
+					style="border: 1px solid gray;">
 			</div>
-			<div class="well">
+			<br>
+			<br>
+			<div class="well">			
 				<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
 				<p>Clicks até agora: ${link.clicks}</p>
-				<div id="qrcode" align="center"></div>
-				<br>
-				<p>QR Code do seu link.</p>
-				<div class="ssb">
-					<!-- Twitter -->
-					<a href="#"
-						onclick="window.open('https://twitter.com/intent/tweet?text=${link.shortUrl}&source=webclient', 'Twitter', 'WIDTH=700, HEIGHT=280');"
-						title="Compartilhar no Twitter" target="_blank"
-						class="btn btn-twitter"> <i class="fa fa-twitter"></i>Twitter
-					</a>
-
-					<!-- Facebook -->
-					<a href="#"
-						onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${link.shortUrl}', 'Facebook', 'WIDTH=700, HEIGHT=341');"
-						title="Compartilhar no Facebook" target="_blank"
-						class="btn btn-facebook"> <i class="fa fa-facebook"></i>Facebook
-					</a>
-
-					<!-- Google+ -->
-					<a href="#"
-						onclick="window.open('https://plus.google.com/share?url=${link.shortUrl}', 'Google+', 'WIDTH = 500, HEIGHT = 450');"
-						title="Compartilhar no Google+" target="_blank"
-						class="btn btn-googleplus"> <i class="fa fa-google-plus"></i>Google+
-					</a>
-				</div>
 				<div class="row">
-					<div class="col-xs-12">
+					<div class="col-lg-12">
 						<h3>Clicks na última semana</h3>
-						<div class="ct-chart ct-perfect-fourth"></div>
+						<div class="ct-chart-clicks" style="height:200px"></div>
 					</div>
 					<div class="col-xs-12">
 						<h3>Navegadores</h3>
-						<div class="ct-chart-pie ct-perfect-fourth"></div>
+						<div class="ct-chart-browsers" style="height:150px"></div>
 					</div>
 				</div>
 			</div>
+				
+			<br>
+			<p>QR Code do seu link.</p>
+			<div id="qrcode" align="center"></div>
+		
 		</div>
+		
 		<button style="margin-bottom: 10px" class="btn btn-danger pull-right"
 			type="button" onclick="removeLink(${link.id})">Remover Link</button>
 	</div>
@@ -111,7 +127,7 @@
 
 	<!-- Gráfico -->
 	<script>
-	new Chartist.Line('.ct-chart', {
+	new Chartist.Line('.ct-chart-clicks', {
 		labels: ['6 dias atrás','5 dias atrás','4 dias atrás','3 dias atrás','2 dias atrás','Ontem','Hoje'],
 		series: [{
 			name: 'clicks',
@@ -120,7 +136,6 @@
 		]
 	}, {
 	  low: 0,
-	  //showArea: true
 	  series: {
       	'clicks': {
       		lineSmooth: Chartist.Interpolation.simple()
@@ -128,13 +143,10 @@
 	  }
 	});
 	
-	var data = {
-		labels: ['Google Chrome','Mozilla Firefox','Safari','Opera','Seamonkey','Outros'],
-		series: ${linkDAO.getBrowsersChartData(link)}
-	};
-
-	var sum = function(a, b) { return a + b };
-
-	new Chartist.Pie('.ct-chart-pie', data);
-        </script>
+	new Chartist.Bar('.ct-chart-browsers', {
+		labels: ${Browser.getBrowsersNames()},
+		series: [${linkDAO.getBrowsersChartData(link)}]
+		}
+	);
+    </script>
 </t:narrow_layout>

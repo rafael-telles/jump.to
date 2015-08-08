@@ -26,9 +26,6 @@ public class Click {
 
 	@Column(name = "browser")
     private String browser;
-	
-	@Column(name = "referrer")
-    private String referrer;
 
 	public Long getId() {
 		return id;
@@ -60,13 +57,5 @@ public class Click {
 
 	public void setBrowser(String browser) {
 		this.browser = browser;
-	}
-
-	public String getReferrer() {
-		return referrer;
-	}
-
-	public void setReferrer(String referrer) {
-		this.referrer = referrer;
 	}
 }

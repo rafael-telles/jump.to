@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import to.jump.models.Link;
 import to.jump.models.User;
+import to.jump.utils.Browser;
 import to.jump.utils.DateUtils;
 import to.jump.utils.StringUtils;
 
@@ -42,20 +43,11 @@ public class LinkDAO {
 	public List<Link> getLinksByUser(User user) {
 		if (user != null) {
 			return sessionFactory.getCurrentSession()
-					.createQuery("select a from Link a where userId = :userId")
+					.createQuery("select a from Link a where userId = :userId order by createTime desc")
 					.setParameter("userId", user.getId()).list();
 		} else {
 			return new ArrayList<Link>();
 		}
-	}
-
-	public List<Link> getLinksByTag(String tag) {
-		return sessionFactory
-				.getCurrentSession()
-				.createQuery(
-						"select a from Link a where tags like '%'||:tag||'%'")
-				.setParameter("tag", tag).list();
-
 	}
 
 	public List<Link> searchLinks(String query) {
@@ -66,7 +58,7 @@ public class LinkDAO {
 						+ "title like '%'||:query||'%' "
 						+ "or description like '%'||:query||'%' "
 						+ "or tags like '%'||:query||'%' "
-						+ "group by longUrl "
+						//+ "group by longUrl "
 						+ "order by clicks")
 				.setParameter("query", query).list();
 	}
@@ -121,7 +113,14 @@ public class LinkDAO {
 	}
 	
 	public String getBrowsersChartData(Link link) {
-		return "[]";
+		String ret = "[";
+		Browser[] browsers = Browser.values();
+		for (int i = 0; i < browsers.length; i++) {
+			ret += clickDao.countClicksByBrowser(link, browsers[i].name);
+			if(i < browsers.length - 1) ret += ", ";
+		}
+		ret += "]";
+		return ret;
 	}
 
 	private static String getCodeFromUrl(String url) {

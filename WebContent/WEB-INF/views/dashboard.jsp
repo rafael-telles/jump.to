@@ -12,33 +12,15 @@
 	<div class="container">
 		<h2>Olá, ${user.firstName}!</h2>
 		
-		<div class="container">
-			<div class="row">
-				<div class="span6">
-		            <form action="shorten" method="post">
-		                <div class="controls controls-row">
-		                    <input id="longUrl" name="longUrl" type="url" class="form-control" placeholder="Uma URL bem grande" required> 
-		                    <input id="tags" name="tags" type="text" class="form-control" placeholder="escreva tags para encontrarem seu link! (ex: Universidade, Esporte, Maquinas Agricolas)">
-		                </div>
-		                <div class="controls">
-		                    <textarea id="description" name="description" class="form-control" placeholder="descrição" rows="5"></textarea>
-		                </div>
-		                <div class="controls">
-		                    <button  type="submit" class="btn btn-primary input-medium pull-right">Encurtar !</button>
-		                </div>
-		            </form>
-		        </div>
-			</div>
-		</div>
-		
-		<!-- <form action="shorten" method="post">
-		    <div class="input-group">
-		      <input id="longUrl" name="longUrl" type="url" class="form-control" placeholder="Uma URL bem grande" required>
-		      	<div class="input-group-btn">
-                	<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-send"></i></button>
-            	</div>
-		  	</div>
-        </form> -->
+		<form action="shorten" method="post">
+ 		    <div class="input-group">
+ 		      <input id="longUrl" name="longUrl" type="url" class="form-control" placeholder="Uma URL bem grande" required>
+ 		      	<div class="input-group-btn">
+                 	<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-send"></i></button>
+             	</div>
+ 		  	</div>
+ 		</form>
+        
         <hr>
 		<c:set var="lista" value="${linkDAO.getLinksByUser(user)}" />
 		
@@ -57,16 +39,25 @@
 						<div class="col-lg-4 col-md-6">
 							<div class="card">
 								<div class="card-image">
-									<img class="img-responsive"
+									<a href="${link.shortUrl}" title="${link.title}">
+										<img class="img-responsive"
 										src="http://free.pagepeeker.com/v2/thumbs.php?size=x&url=${link.longUrl}">
+									</a>
 								</div>
 
 								<div class="card-content">
 									<p class="truncate-text">
 										<a href="${link.shortUrl}">${link.title}</a>
-										<br><br>
-										Clicks: ${link.clicks}
 									</p>
+									<br>
+									<p class="truncate-text">${link.description}</p>
+									<hr>
+									<small>
+										<c:if test="${not empty link.tags}">
+											<i class="glyphicon glyphicon-tags"></i><span>  ${link.tags}</span><br>
+										</c:if>
+										<span>Clicks: ${link.clicks}</span>
+									</small>
 								</div>
 
 								<div class="card-action">

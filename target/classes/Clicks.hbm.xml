@@ -12,11 +12,8 @@
         <property name="linkId" type="java.lang.Long">
             <column name="linkId" />
         </property>
-        <property name="referrer" type="string">
-            <column name="referrer" />
-        </property>
-        <property name="userAgent" type="string">
-            <column name="userAgent" />
+        <property name="browser" type="string">
+            <column name="browser" />
         </property>
     </class>
 </hibernate-mapping>

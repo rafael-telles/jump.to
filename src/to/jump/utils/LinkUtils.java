@@ -8,27 +8,8 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LinkUtils {
-	public static String getBrowserFromUserAgent(String userAgent) {
-		if(userAgent.contains("Firefox") && !userAgent.contains("Seamonkey")) {
-			return "Firefox";
-		} else if(userAgent.contains("Seamonkey")) {
-			return "Seamonkey";
-		} else if(userAgent.contains("Chrome") && !userAgent.contains("Chromium")) {
-			return "Chrome";
-		} else if(userAgent.contains("Chromium")) {
-			return "Chromium";
-		} else if(userAgent.contains("Safari") && !userAgent.contains("Chrome") && !userAgent.contains("Chromium")) {
-			return "Safari";
-		} else if(userAgent.contains("OPR") || userAgent.contains("Opera")) {
-			return "Opera";
-		} else if(userAgent.contains("MSIE") || userAgent.contains("Trident")) {
-			return "Internet Explorer";
-		} else {
-			return "?";
-		}
-	}
-	
+public class LinkUtils {	
+		
 	public static String getPageTitle(String url) {
 		URL obj;
 		try {

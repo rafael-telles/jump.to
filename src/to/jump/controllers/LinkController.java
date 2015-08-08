@@ -18,6 +18,7 @@ import to.jump.dao.LinkDAO;
 import to.jump.models.Click;
 import to.jump.models.Link;
 import to.jump.models.User;
+import to.jump.utils.Browser;
 import to.jump.utils.LinkUtils;
 
 @Controller
@@ -44,14 +45,12 @@ public class LinkController {
 	@RequestMapping(value = "/u/{code}", method = RequestMethod.GET)
 	public RedirectView redirect(@PathVariable String code,
 			final HttpServletResponse response,
-			@RequestHeader(value = "referer") String referrer,
 			@RequestHeader(value = "User-Agent") String userAgent) {
 		Link link = linkDao.getLinkByCode(code);
 
 		Click click = new Click();
 		click.setLinkId(link.getId());
-		click.setReferrer(referrer);
-		click.setBrowser(LinkUtils.getBrowserFromUserAgent(userAgent));
+		click.setBrowser(Browser.identify(userAgent).name);
 
 		clickDao.insertClick(click);
 

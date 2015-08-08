@@ -18,7 +18,7 @@
 					<c:forEach var="link" items="${results}">
 						<article class="search-result row">
 							<div class="col-xs-12 col-sm-12 col-md-3">
-								<a href="#" title="Lorem ipsum" class="thumbnail"><img
+								<a href="${link.shortUrl}" title="${link.title}" class="thumbnail" target="_blank"><img
 									src="http://free.pagepeeker.com/v2/thumbs.php?size=x&url=${link.longUrl}"
 									alt="${link.title}" /></a>
 							</div>
