@@ -56,8 +56,9 @@ public class LinkDAO {
 				.createQuery(
 						"select a from Link a where "
 						+ "title like '%'||:query||'%' "
-						+ "or description like '%'||:query||'%' "
+						//+ "or description like '%'||:query||'%' "
 						+ "or tags like '%'||:query||'%' "
+						+ "and userId is not null "
 						//+ "group by longUrl "
 						+ "order by clicks")
 				.setParameter("query", query).list();

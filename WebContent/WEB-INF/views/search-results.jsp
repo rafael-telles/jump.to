@@ -29,7 +29,7 @@
 									<li><i class="glyphicon glyphicon-time"></i> <span><fmt:formatDate
 												value="${link.createTime}" pattern="HH:mm" /></span></li>
 									<c:if test="${not empty link.tags}">
-										<li><i class="glyphicon glyphicon-tags"></i> <span>${link.tags}</span></li>
+										<li><i class="glyphicon glyphicon-tags"></i> <span class="tags">${link.tags}</span></li>
 									</c:if>
 								</ul>
 							</div>
@@ -39,7 +39,14 @@
 								</h3>
 								<p>${link.description}</p>
 								<hr>
-								<p>Clicks: ${link.clicks}</p>
+								<p>Clicks: ${link.clicks}
+								
+								<c:if test="${not empty user && link.userId == user.id}">
+									<a href="${link.statisticsUrl}" class="text-default pull-right">
+										<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+									</a>
+								</c:if>
+								</p>
 							</div>
 							<span class="clearfix borda"></span>
 						</article>
@@ -48,4 +55,17 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
+	
+	<script>
+	$(".tags").each(function(index) {
+		  var text = $(this).text();
+		  var words = text.trim().split(/[\s,]+/);
+
+		  $(this).empty();
+		  var that = this;
+		  words.forEach(function(word) {
+		    $(that).append('<a href="search?q='+word+'">' + word + '</a> ');
+		  });
+		});
+	</script>
 </t:narrow_layout>

@@ -10,7 +10,7 @@
 				<span><strong>Ops...</strong> Você não preencheu os dados corretamente!</span>
 	        </div>
 		</spring:hasBindErrors>
-		<div class="col-xs-6">
+		<div class="col-lg-6">
 			<div class="well">
 				<form id="loginForm" method="POST" action="login">
 					<div class="form-group">
@@ -32,7 +32,7 @@
 				</form>
 			</div>
 		</div>
-		<div class="col-xs-6">
+		<div class="col-lg-6">
 			<p class="lead">
 				Registre-se agora <span class="text-success">DE GRAÇA</span>
 			</p>

@@ -91,6 +91,7 @@
 		
 		<button style="margin-bottom: 10px" class="btn btn-danger pull-right"
 			type="button" onclick="removeLink(${link.id})">Remover Link</button>
+		<a style="margin: 0 10px 10px 0" class="btn btn-default pull-right" href="${link.editUrl}">Editar Link</a>
 	</div>
 
 	<!-- removeLink -->

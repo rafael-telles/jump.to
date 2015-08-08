@@ -55,7 +55,6 @@
 					</div>
 
 					<button type="submit" class="btn btn-success btn-block" onsubmit="validate()">Registrar</button>
-          			<input type="hidden" name="action" value="RegisterUser" />
 				</form>
 			</div>
 		</div>

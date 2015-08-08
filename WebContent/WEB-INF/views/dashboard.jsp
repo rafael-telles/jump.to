@@ -54,18 +54,18 @@
 									<hr>
 									<small>
 										<c:if test="${not empty link.tags}">
-											<i class="glyphicon glyphicon-tags"></i><span>  ${link.tags}</span><br>
+											<i class="glyphicon glyphicon-tags">. </i><span class="tags">${link.tags}</span><br>
 										</c:if>
 										<span>Clicks: ${link.clicks}</span>
 									</small>
 								</div>
 
 								<div class="card-action">
-									<a href="${link.shortUrl}" class="text-default pull-left">
-										<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
-									</a>
-									<a href="${link.statisticsUrl}" class="text-default">
+									<a href="${link.statisticsUrl}" class="text-default pull-left">
 										<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+									</a>
+									<a href="${link.editUrl}" class="text-default">
+										<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</a>
 									<a onclick="removeLink(${link.id})" class="text-danger">
 										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -98,5 +98,18 @@
 				});
 			}
 		}
+	</script>
+	
+	<script>
+	$(".tags").each(function(index) {
+		  var text = $(this).text();
+		  var words = text.trim().split(/[\s,]+/);
+
+		  $(this).empty();
+		  var that = this;
+		  words.forEach(function(word) {
+		    $(that).append('<a href="search?q='+word+'">' + word + '</a> ');
+		  });
+		});
 	</script>
 </t:narrow_layout>

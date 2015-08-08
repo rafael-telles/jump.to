@@ -31,18 +31,22 @@ public class LinkController {
 
 	@RequestMapping(value = "/shorten", method = RequestMethod.POST)
 	public String shorten(Link link, HttpSession session) {
+		link.setTitle(LinkUtils.getPageTitle(link.getLongUrl()));
+
 		User user = (User) session.getAttribute("user");
 		if (user != null) {
 			link.setUserId(user.getId());
 		}
-
-		link.setTitle(LinkUtils.getPageTitle(link.getLongUrl()));
-		
 		linkDao.insertLink(link);
-		return "redirect:/u/" + link.getCode() + "+";
+
+		if (user != null) {
+			return "redirect:/e/" + link.getCode();
+		} else {
+			return "redirect:/s/" + link.getCode();
+		}
 	}
 
-	@RequestMapping(value = "/u/{code}", method = RequestMethod.GET)
+	@RequestMapping(value = "/r/{code}", method = RequestMethod.GET)
 	public RedirectView redirect(@PathVariable String code,
 			final HttpServletResponse response,
 			@RequestHeader(value = "User-Agent") String userAgent) {
@@ -59,7 +63,7 @@ public class LinkController {
 		return redirectView;
 	}
 
-	@RequestMapping(value = "/u/{code}+", method = RequestMethod.GET)
+	@RequestMapping(value = "/s/{code}", method = RequestMethod.GET)
 	public String statistics(@PathVariable String code,
 			HttpServletResponse httpServletResponse, Model model) {
 		Link link = linkDao.getLinkByCode(code);
@@ -72,7 +76,7 @@ public class LinkController {
 	public @ResponseBody String removeLink(long id,
 			HttpServletResponse httpServletResponse, Model model,
 			HttpSession session) {
-		
+
 		User user = (User) session.getAttribute("user");
 		if (user != null) {
 			Link link = linkDao.getLinkById(id);
@@ -83,5 +87,36 @@ public class LinkController {
 			}
 		}
 		return "{\"error\": true, \"msg\": \"Voc� n�o � o dono dessa URL!\"}";
+	}
+
+	@RequestMapping(value = "/e/{code}", method = RequestMethod.GET)
+	public String edit(@PathVariable String code,
+			HttpServletResponse httpServletResponse, Model model,
+			HttpSession session) {
+		Link link = linkDao.getLinkByCode(code);
+		User user = (User) session.getAttribute("user");
+		if (user != null) {
+			if (link.getUserId() == user.getId()) {
+				model.addAttribute("link", link);
+				return "edit";
+			}
+		}
+		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/updatelink", method = RequestMethod.POST)
+	public String UpdateLink(HttpServletResponse httpServletResponse,
+			Link link, Model model, HttpSession session) {
+		Link linkToUpdate = linkDao.getLinkById(link.getId());
+		User user = (User) session.getAttribute("user");
+		if (user != null) {
+			if (linkToUpdate.getUserId() == user.getId()) {
+				linkToUpdate.setTags(link.getTags());
+				linkToUpdate.setDescription(link.getDescription());
+				linkDao.updateLink(linkToUpdate);
+				return "redirect:/s/" + linkToUpdate.getCode();
+			}
+		}
+		return "redirect:/";
 	}
 }

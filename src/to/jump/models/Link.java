@@ -111,7 +111,11 @@ public class Link {
 	}
 
 	public String getStatisticsUrl() {
-		return getShortUrl() + "+";
+		return "/s/" + code;
+	}
+	
+	public String getEditUrl() {
+		return "/e/" + code;
 	}
 
 	public Date getCreateTime() {
