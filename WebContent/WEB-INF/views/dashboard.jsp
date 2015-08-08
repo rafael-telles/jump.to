@@ -12,21 +12,42 @@
 	<div class="container">
 		<h2>Olá, ${user.firstName}!</h2>
 		
-		<form action="shorten" method="post">
+		<div class="container">
+			<div class="row">
+				<div class="span6">
+		            <form action="shorten" method="post">
+		                <div class="controls controls-row">
+		                    <input id="longUrl" name="longUrl" type="url" class="form-control" placeholder="Uma URL bem grande" required> 
+		                    <input id="tags" name="tags" type="text" class="form-control" placeholder="escreva tags para encontrarem seu link! (ex: Universidade, Esporte, Maquinas Agricolas)">
+		                </div>
+		                <div class="controls">
+		                    <textarea id="description" name="description" class="form-control" placeholder="descrição" rows="5"></textarea>
+		                </div>
+		                <div class="controls">
+		                    <button  type="submit" class="btn btn-primary input-medium pull-right">Encurtar !</button>
+		                </div>
+		            </form>
+		        </div>
+			</div>
+		</div>
+		
+		<!-- <form action="shorten" method="post">
 		    <div class="input-group">
 		      <input id="longUrl" name="longUrl" type="url" class="form-control" placeholder="Uma URL bem grande" required>
 		      	<div class="input-group-btn">
                 	<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-send"></i></button>
             	</div>
 		  	</div>
-        </form>
-          
+        </form> -->
         <hr>
-
 		<c:set var="lista" value="${linkDAO.getLinksByUser(user)}" />
+		
 		<c:choose>
 			<c:when test="${empty lista}">
-				<h3>Você ainda não encurtou nenhuma URL!</h3>
+				<div class="alert alert-warning" role="alert">
+                	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span> Você ainda não encurtou nenhuma URL!</span>
+               	</div>
 			</c:when>
 			<c:otherwise>
 				<h4>Estes são os seus links:</h4>

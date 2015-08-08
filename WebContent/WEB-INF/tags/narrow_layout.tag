@@ -27,13 +27,13 @@
         	</div>
     
 			<c:choose>
-				<c:when test="${empty user}">
+				<c:when test="${empty sessionScope.user}">
             		<a class="btn btn-success" href="/login">Login</a>
 				</c:when>
 				<c:otherwise>
             		<a class="btn btn-danger" href="/logout">Logout</a>
 				</c:otherwise>
-			</c:choose>
+			</c:choose> 
           </form>
         </nav>
       </div>

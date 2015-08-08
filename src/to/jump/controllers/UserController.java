@@ -4,9 +4,12 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.validation.Validation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -32,20 +35,19 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginPost(HttpSession session, User user, Errors errors)
+	public String loginPost(HttpSession session, User user, BindingResult result, Model model)
 			throws SQLException {
-		ValidationUtils.rejectIfEmpty(errors, "email", "user.email.empty");
-		ValidationUtils.rejectIfEmpty(errors, "password", "user.password.empty");
-		
 		user.encryptPassword();
+		
 		
 		user = userDao.getUser(user.getEmail(), user.getPassword());
 		if (user != null) {
 			session.setAttribute("user", user);
-
 			return "redirect:/dashboard";
+			
 		} else {
-			return "redirect:/";
+			result.reject("user.not_found");
+			return "login";
 		}
 	}
 
@@ -70,7 +72,8 @@ public class UserController {
 
 			return "redirect:/dashboard";
 		}
-		return "redirect:/";
+		result.reject("user.alredy_exists");
+		return "register";
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
