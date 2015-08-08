@@ -2,57 +2,83 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:useBean id="global" class="to.jump.Global" />
 <t:narrow_layout>
-        <link href="assets/css/share-buttons.css" rel="stylesheet">
-        <script src="assets/js/qrcode.min.js"></script>
- 
-        <div class="container">
-                <c:choose>
-                        <c:when test="${empty link.userId}">
-                                <div class="alert alert-warning" role="alert">
-                                        <span>Essa URL curtinha não tem dono, suas estatísticaspodem ser visualizadas por qualquer um!</span>
-                                </div>
-                        </c:when>
-                        <c:otherwise>
-                                <c:if test="${empty user || link.userId != user.id}">
-                                        <c:redirect url="/login" />
-                                </c:if>
-                        </c:otherwise>
-                </c:choose>
- 
-                <div class="jumbotron">
-                        <h3>URL: <a href="${link.shortUrl}" target="_blank">${link.shortUrl}</a></h3>
-                        <small>URL original: <a href="${link.longUrl}"
-                                target="_blank">${link.longUrl}</a></small> <br> <br>
-                        <div class="wrapper">
-                                <img src="http://free.pagepeeker.com/v2/thumbs.php?size=x&url=${link.longUrl}" style="border: 1px solid gray;"><br><br>
-                        </div>
-                                <div class="well">
-                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                        <p>Clicks até agora: ${link.clicks}</p>
-                                        <div id="qrcode" align="middle"></div>
-                                        <br><p>QR Code do seu link.</p>
-                                        <div class="ssb">
-                                                <!-- Twitter -->
-                                                <a href="#" onclick="window.open('https://twitter.com/intent/tweet?text=${link.shortUrl}&source=webclient', 'Twitter', 'WIDTH=700, HEIGHT=280');"
-                                                        title="Compartilhar no Twitter" target="_blank"
-                                                        class="btn btn-twitter"> <i class="fa fa-twitter"></i>Twitter</a>
- 
-                                                <!-- Facebook -->
-                                                <a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${link.shortUrl}', 'Facebook', 'WIDTH=700, HEIGHT=341');"
-                                                        title="Compartilhar no Facebook" target="_blank"
-                                                        class="btn btn-facebook"> <i class="fa fa-facebook"></i>Facebook</a>
- 
-                                                <!-- Google+ -->
-                                                <a href="#" onclick="window.open('https://plus.google.com/share?url=${link.shortUrl}', 'Google+', 'WIDTH = 500, HEIGHT = 450');"
-                                                        title="Compartilhar no Google+" target="_blank"
-                                                        class="btn btn-googleplus"> <i class="fa fa-google-plus"></i>Google+</a>
-                                </div>
-                        </div>
-                </div>
-                <button style="margin-bottom: 10px" class="btn btn-danger pull-right"type="button" onclick="removeLink(${link.id})">Remover Link</button>
-        </div>
- 
-        <script>
+	<link href="assets/css/share-buttons.css" rel="stylesheet">
+	<link href="assets/css/chartist.min.css" rel="stylesheet">
+	<script src="assets/js/qrcode.min.js"></script>
+	<script src="assets/js/chartist.min.js"></script>
+
+	<div class="container">
+		<c:choose>
+			<c:when test="${empty link.userId}">
+				<div class="alert alert-warning" role="alert">
+					<span>Essa URL curtinha não tem dono, suas estatísticaspodem
+						ser visualizadas por qualquer um!</span>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<c:if test="${empty user || link.userId != user.id}">
+					<c:redirect url="/login" />
+				</c:if>
+			</c:otherwise>
+		</c:choose>
+
+		<div class="jumbotron">
+			<h3>
+				URL: <a href="${link.shortUrl}" target="_blank">${link.shortUrl}</a>
+			</h3>
+			<small>URL original: <a href="${link.longUrl}"
+				target="_blank">${link.longUrl}</a></small> <br> <br>
+			<div class="wrapper">
+				<img
+					src="http://free.pagepeeker.com/v2/thumbs.php?size=x&url=${link.longUrl}"
+					style="border: 1px solid gray;"><br> <br>
+			</div>
+			<div class="well">
+				<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+				<p>Clicks até agora: ${link.clicks}</p>
+				<div id="qrcode" align="center"></div>
+				<br>
+				<p>QR Code do seu link.</p>
+				<div class="ssb">
+					<!-- Twitter -->
+					<a href="#"
+						onclick="window.open('https://twitter.com/intent/tweet?text=${link.shortUrl}&source=webclient', 'Twitter', 'WIDTH=700, HEIGHT=280');"
+						title="Compartilhar no Twitter" target="_blank"
+						class="btn btn-twitter"> <i class="fa fa-twitter"></i>Twitter
+					</a>
+
+					<!-- Facebook -->
+					<a href="#"
+						onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${link.shortUrl}', 'Facebook', 'WIDTH=700, HEIGHT=341');"
+						title="Compartilhar no Facebook" target="_blank"
+						class="btn btn-facebook"> <i class="fa fa-facebook"></i>Facebook
+					</a>
+
+					<!-- Google+ -->
+					<a href="#"
+						onclick="window.open('https://plus.google.com/share?url=${link.shortUrl}', 'Google+', 'WIDTH = 500, HEIGHT = 450');"
+						title="Compartilhar no Google+" target="_blank"
+						class="btn btn-googleplus"> <i class="fa fa-google-plus"></i>Google+
+					</a>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<h3>Clicks na última semana</h3>
+						<div class="ct-chart ct-perfect-fourth"></div>
+					</div>
+					<div class="col-xs-12">
+						<h3>Navegadores</h3>
+						<div class="ct-chart-pie ct-perfect-fourth"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<button style="margin-bottom: 10px" class="btn btn-danger pull-right"
+			type="button" onclick="removeLink(${link.id})">Remover Link</button>
+	</div>
+
+	<!-- removeLink -->
+	<script>
         function removeLink(id) {
                 if(confirm("Você deseja mesmo excluir esta URL?")) {
                         $.ajax('/removeLink', {
@@ -70,7 +96,9 @@
                         });
                 }
         }
-       
+        </script>
+	<!-- QR code -->
+	<script>
         var qrcode = new QRCode("qrcode", {
             text: "${link.shortUrl}",
             colorDark : "#000000",
@@ -79,5 +107,34 @@
             width : 180,
             correctLevel : QRCode.CorrectLevel.H,
         });
+        </script>
+
+	<!-- Gráfico -->
+	<script>
+	new Chartist.Line('.ct-chart', {
+		labels: ['6 dias atrás','5 dias atrás','4 dias atrás','3 dias atrás','2 dias atrás','Ontem','Hoje'],
+		series: [{
+			name: 'clicks',
+			data: ${linkDAO.getClicksChartData(link)}
+		}
+		]
+	}, {
+	  low: 0,
+	  //showArea: true
+	  series: {
+      	'clicks': {
+      		lineSmooth: Chartist.Interpolation.simple()
+      	}
+	  }
+	});
+	
+	var data = {
+		labels: ['Google Chrome','Mozilla Firefox','Safari','Opera','Seamonkey','Outros'],
+		series: ${linkDAO.getBrowsersChartData(link)}
+	};
+
+	var sum = function(a, b) { return a + b };
+
+	new Chartist.Pie('.ct-chart-pie', data);
         </script>
 </t:narrow_layout>
