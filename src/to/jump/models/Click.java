@@ -24,8 +24,8 @@ public class Click {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date timestamp;
 
-	@Column(name = "userAgent")
-    private String userAgent;
+	@Column(name = "browser")
+    private String browser;
 	
 	@Column(name = "referrer")
     private String referrer;
@@ -54,12 +54,12 @@ public class Click {
 		this.timestamp = timestamp;
 	}
 
-	public String getUserAgent() {
-		return userAgent;
+	public String getBrowser() {
+		return browser;
 	}
 
-	public void setUserAgent(String userAgent) {
-		this.userAgent = userAgent;
+	public void setBrowser(String browser) {
+		this.browser = browser;
 	}
 
 	public String getReferrer() {
