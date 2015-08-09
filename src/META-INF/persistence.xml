@@ -5,9 +5,11 @@
 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 	version="2.1">
 
-	<persistence-unit name="users">
+	<persistence-unit name="jumpto">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>to.jump.models.User</class>
+		<class>to.jump.models.Click</class>
+		<class>to.jump.models.Link</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/jumpto" />
