@@ -17,7 +17,7 @@
 		<c:choose>
 			<c:when test="${empty link.userId}">
 				<div class="alert alert-warning" role="alert">
-					<span>Essa URL curtinha não tem dono, suas estatísticaspodem
+					<span>Essa URL curtinha não tem dono, suas estatísticas podem
 						ser visualizadas por qualquer um!</span>
 				</div>
 			</c:when>
